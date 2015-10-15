@@ -1,0 +1,58 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage[parfill]{parskip}
+
+%fikser margen
+\usepackage[a4paper,includeheadfoot,margin=3cm]{geometry}
+
+%font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+%linjeavstand
+\usepackage{setspace}
+\renewcommand{\baselinestretch}{1.15}
+
+
+\usepackage[hyphens]{url}
+\author{    Audun Eltvik,\\
+            Ulrik Fallrø, \\
+            Shahrukh Khan }
+\title{Helicopter Labratory Report}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+
+\newpage
+\input{PartI.tex}
+
+\newpage
+\input{PartII.tex}
+
+\newpage
+\input{PartIII.tex}
+
+\newpage
+\input{PartIV.tex}
+
+\newpage
+\addcontentsline{toc}{subsection}{Sources}
+\section*{Sources}
+\begin{thebibliography}{1}
+\bibitem{4physics}
+	\emph{www.4physics.com}, Newton's Laws for Rotation\\
+	\url{https://www.4physics.com/phy_demo/newton/newton_rot2.htm/}
+\end{thebibliography}
+\end{document}

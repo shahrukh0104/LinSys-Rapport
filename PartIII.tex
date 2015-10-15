@@ -1,0 +1,233 @@
+\addcontentsline{toc}{section}{Part III - Multi-variable control}
+\section*{Part III - Multi-variable control}
+\addcontentsline{toc}{subsection}{5.3.1}
+\subsection*{5.3.1}
+
+We have that 
+\begin{align*}
+    \ddot{\tilde{p}}    &= K_3\tilde{V_d}\\
+    \ddot{\tilde{e}}    &= K_2\tilde{V_s}
+    \intertext{We want to model in the state-space formulation}
+    \dot{x}             &= Ax + Bu
+\end{align*}
+were
+\begin{align*}
+x = 
+\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{p}}\\
+    \dot{\tilde{e}}
+\end{bmatrix}
+\text{and}\ u =
+\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}\\
+\end{bmatrix}
+\end{align*}
+so we substiitute in 
+\begin{align*}
+\begin{bmatrix}
+    \dot{\tilde{p}}\\
+    \ddot{\tilde{p}}\\
+    \ddot{\tilde{e}}\\
+\end{bmatrix} &= 
+A\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{p}}\\
+    \dot{\tilde{e}}
+\end{bmatrix}
++ B\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}
+\end{bmatrix}
+\end{align*}
+
+
+\begin{align*}
+\begin{bmatrix}
+    \dot{\tilde{p}}\\
+    \ddot{\tilde{p}}\\
+    \ddot{\tilde{e}}\\
+\end{bmatrix} &= 
+\begin{bmatrix}
+    0 & 1 & 0\\
+    0 & 0 & 0\\
+    0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{p}}\\
+    \dot{\tilde{e}}
+\end{bmatrix} +
+\begin{bmatrix}
+    0 & 0\\
+    0 & K_1\\
+    K_2 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}
+\end{bmatrix}
+\end{align*}
+%%%%%%%%%%%Conclude with something related to the task%%%%%%%%%%%
+
+\newpage
+\addcontentsline{toc}{subsection}{5.3.2}
+\subsection*{5.3.2}
+%%%%%%%%%%Some text with description%%%%%%%%%%%%%%%%%
+\begin{align*}
+r &= 
+\begin{bmatrix}
+    \tilde{p_c}\\
+    \dot{\tilde{e_c}}
+\end{bmatrix}
+%%%%%%%%%%%%Something about Brysons rule not being good enough%%%%%%%%%%
+\intertext{To find the weighting matrices Q and R we use Brysons rule. We want the pitch ($\tilde{p}$) to be max 45$^{\circ}$, that is $\frac{\pi}{4}$rad. And we want it to accomplish that in $0.5$sek that is $\dot{\tilde{p}} = \frac{\pi}{2}$. In addition to that we want elevation rate to be maximum $\frac{\pi}{6}$. This gives us}
+Q &=
+\begin{bmatrix}
+    \frac{16}{\pi^2} & 0 & 0\\
+    0 & \frac{4}{\pi^2} & 0\\
+    0 & 0 & \frac{9}{\pi^2}
+\end{bmatrix}
+\intertext{we say that the maximum voltage output is 10V, so $V_s = V_d = 10V.$ This gives us}
+R &= 
+\begin{bmatrix}
+    0.01 & 0\\
+    0 & 0.01
+\end{bmatrix}
+\intertext{using Matlab, we find that matrix K (The matrix that corresponds to the LQR for which the controll input $u = -Kx$ optimize the cost function) is}
+K &= 
+\begin{bmatrix}
+    0 & 0 & 9.55\\
+    12.7 & 8.98 & 0
+\end{bmatrix}
+\intertext{We want to find matrix P so that in theory we get $y = r_c$ when $t->$(uendelig). We have that}
+y = 
+\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{e}}
+\end{bmatrix} 
+&= Cx,\,\text{where}\ C = 
+\begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 0 & 0
+\end{bmatrix}
+\intertext{We Laplace transform the state-space formula, and get}
+    sIx                 &= Ax + Bu\\
+\intertext{we now substitue in for u.}
+    sIx                 &= Ax + B(\frac{Pr_c}{s} - Kx)\\
+    sIx - Ax + Bx       &= B\frac{Pr_c}{s}\\
+    (sI - A + BK)x      & = B\frac{Pr_c}{s}\\
+    x                   &= (sI-A+BK)^{-1} B\frac{Pr_c}{s}
+\intertext{we substitute} x\ \text{in}\ y &= Cx\\
+    y                   &= C(sI-A+BK)^{-1}B\frac{Pr_c}{s}
+\intertext{We use the finit value theorem to find y after t - uendelig and choose P such that $y = r_c$. We get}
+    y                   &=\\ %lim s->0% sC(sI-A+ BK)^{-1}B\frac{Pr_c}{s}\\
+    y                   &= C(-A+BK)^{-1}BPr_c
+\intertext{For $y$ to be equal to $r_c$, then P has to equal}
+    P                   &= (C(-A+BK)^{-1}B)^{-1}
+\end{align*}
+%%%%%%%Something about steady-state error, that will be compusated for in PI%%%%%
+
+
+
+\newpage
+\addcontentsline{toc}{subsection}{5.3.3}
+\subsection*{5.3.3}
+We now have:
+\begin{align*}
+x &=
+\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{p}}\\
+    \dot{\tilde{e}}\\
+    \gamma\\
+    \zeta
+\end{bmatrix},\,
+\text{and}\
+u = 
+\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}
+\end{bmatrix}
+\intertext{Substituting this in to the state-space formula}
+    \dot{x} &= 
+\begin{bmatrix}
+    \dot{\tilde{p}}\\
+    \ddot{\tilde{p}}\\
+    \ddot{\tilde{e}}\\
+    \dot{\gamma}\\
+    \dot{\zeta}
+\end{bmatrix} = 
+A\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{p}}\\
+    \dot{\tilde{e}}\\
+    \gamma\\
+    \zeta
+\end{bmatrix} +
+B\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}
+\end{bmatrix}\\
+\begin{bmatrix}
+    \dot{\tilde{p}}\\
+    \ddot{\tilde{p}}\\
+    \ddot{\tilde{e}}\\
+    \dot{\gamma}\\
+    \dot{\zeta}
+\end{bmatrix} &= 
+\begin{bmatrix}
+    0 & 1 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    \tilde{p}\\
+    \dot{\tilde{p}}\\
+    \dot{\tilde{e}}\\
+    \gamma\\
+    \zeta
+\end{bmatrix} + 
+\begin{bmatrix}
+    0 & 0\\
+    0 & K_1\\
+    K_2 & 0\\
+    0 & 0\\
+    0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    \tilde{V_d}\\
+    \tilde{V_s}
+\end{bmatrix}
+\end{align*}
+This gives new matrices $A, B, K$ and $Q$:
+\begin{align*}
+A = \begin{bmatrix}
+    0 & 1 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0 & 0\\
+    0 & 0 & 0 & 0 & 0\\
+    1 & 0 & 0 & 0 & 0\\
+    0 & 0 & 1 & 0 & 0
+\end{bmatrix},\qquad
+B &= \begin{bmatrix}
+    0 & 0\\
+    0 & K1\\
+    K2 & 0\\
+    0 & 0\\
+    0 & 0
+\end{bmatrix},\\
+K = \begin{bmatrix}
+0       & 0     & 10.52 & 0     & 1\\
+19.04   & 10.03 & 0     & 10    & 0 
+\end{bmatrix}, \qquad
+Q &= \begin{bmatrix}
+    \frac{16}{\pi^2} & 0 & 0 & 0 & 0\\
+    0 & \frac{4}{\pi^2} & 0 & 0 & 0\\
+    0 & 0 & \frac{9}{\pi^2} & 0 & 0 \\
+    0 & 0 & 0 & 100 & 0 \\
+    0 & 0 & 0 & 0 & 100
+\end{bmatrix}
+\end{align*}

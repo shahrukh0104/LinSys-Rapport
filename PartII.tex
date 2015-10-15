@@ -1,0 +1,44 @@
+\addcontentsline{toc}{section}{Part II - Mono-variable control}
+\section*{Part II - Mono-variable control}
+
+\addcontentsline{toc}{subsection}{5.2.1}
+\subsection*{5.2.1}
+We substitute in the equation for the PD-controller in to the equation of motion for the pitch angle $\tilde{p}$ and Laplace transform
+\begin{align*}
+    \ddot{\tilde{p}}                                                    &= K_1(K_{pp}(\tilde{p_c}-\tilde{p})- K_{pd}\dot{\tilde{p}}\\
+    s^2\tilde{p}(s)                                                     &= K_1K_{pp}\tilde{p_c}(s)-K_1K_{pp}\tilde{p}(s)-K_1K_{pd}s\tilde{p}(s)\\
+    s^2\tilde{p}(s) + K_1K_{pp}\tilde{p}(s) + K_1K_{pd}s\tilde{p}(s)    &= K_1K_{pp}\tilde{p_c}(s)\\
+    \tilde{p}(s)(s^2+K_1K_{pd}s + K_1K{pp})                             &= K_1K_{pp}\title{p_c}(s)\\
+    \frac{\tilde{p}(s)}{\tilde{p_c}(s)}                                 &= \frac{K_1K_{pp}}{s^2 + K_1K{pd}s + K_1K_{pp}} = \frac{1}{(\frac{s}{\sqrt{K_1K_{pp}}})^2+\frac{K_{pd}}{K_{pp}}s +1}
+\end{align*}
+
+
+To be able to tune both $K_{pp}$ and $K_{pd}$ we find an expression for both involving the frequency $\omega_0$, so we only need to tune $\omega_0$. To find these expressions we use the result from our transfer function. Notice $K_1$ is a constant we have already defined. We also demand critical damping, that is $\zeta$=0. We rewrite the transferfunction: 
+\begin{align*}
+\frac{K}{(\frac{s}{\omega_0})^2+\frac{2\zeta}{\omega_0}s +1}
+\end{align*} 
+This gives ut the two different expressions: 
+\begin{align*}
+K_{pp} = \frac{\omega_0^2}{K_1}\ \text{and}\  K_{pd} = \frac{2\omega_0}{K_1}
+\end{align*}
+Using these expressions we tuned $\omega_0$ with consideration to stability and speed, untill we got a desired and appropriate behaviour to the pitch angle. Our observation concluded with the value of $\omega_0$ should be within the range between 2.1 and 3. Therefore, we chose $\omega_0$ to be 2.5, as a good compromise between stability and speed. We still have a sensetive system, but we get better results and it is easier handling the helicopter now. 
+
+
+\newpage
+\addcontentsline{toc}{subsection}{5.2.2}
+\subsection*{5.2.2}
+Since we assume that pitch angle is controlled perfectly we can use the linearized equation of motion and get the two expressions for the P controller:
+\begin{align*}
+    \tilde{p_c} = K_{rp}(\dot{\tilde{\lambda_c}} - \dot{\tilde{\lambda}}),\quad \tilde{p_c} = \tilde{p} = \frac{\ddot{\tilde{\lambda}}}{K_3}
+\end{align*}
+
+To find the transferfunction $\frac{\dot{\tilde{\lambda}}}{\dot{\tilde{\lambda}}}(s)$ we set the two expressions equal to each other and laplace transform  
+\begin{align*}
+    \frac{\ddot{\tilde{\lambda}}}{K_3}  &=  K_{rp}(\dot{\tilde{\lambda_c}}- \dot{\tilde{\lambda}})\\
+    \ddot{\tilde{\lambda}}              &= K_{rp}K_3(\dot{\tilde{\lambda_c}}- \dot{\tilde{\lambda}})\\
+    s\dot{\tilde{\lambda}}              &= K_{rp}K_3\dot{\tilde{\lambda_c}} - K_{rp}K_3\dot{\tilde{\lambda}}\\
+    \dot{\tilde{\lambda}}(s + K_{rp}K_3) &= K_{rp}K_3\dot{\tilde{\lambda_c}}\\
+    \frac{\dot{\tilde{\lambda}}}{\dot{\tilde{\lambda_c}}}(s) &= \frac{K_{rp}K_3}{s + K{rp}K_3} = \frac{\rho}{s + \rho}
+\end{align*}
+
+We are still not able to compensate for the steady-state error. 

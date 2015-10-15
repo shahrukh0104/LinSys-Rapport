@@ -1,0 +1,311 @@
+\addcontentsline{toc}{section}{Part I - Mathematical Modeling}
+\section*{Part I - Mathematical Modeling}
+
+%"BEVIS" FOR NEWTONS 2.LOV
+First of all we have to derive the equations of motion for the pitch, elevation and travel angles. To obtain these, we use Newton's second law for rotational motion about an axis of rotation. Which is given by
+\begin{align*}
+\sum_{i}\tau_\phi = \sum_{i}r_i\times F_i = \sum_{i}m_ir_i \times (a_c + a_t) = \sum_{i}m_ir_i \times a_t = \sum_{i}m_ir_i \times \alpha \times r_i
+\end{align*} 
+
+That is, the torque $\tau$ about the axis $\phi$ equals the arm $r$ times the force $F$. The $\alpha$ represents the angular acceleration. Since the angles we will be calculating with is fixed, the total torque is  
+\begin{align*}
+\sum\tau_\phi = J_\phi \cdot \alpha
+\end{align*}
+where $J_\phi$ is the total moment of inertia around $\phi$. In the following subsections the angles pitch, elevation and travel has been derived accordingly. 
+\addcontentsline{toc}{subsection}{5.1.1}
+\subsection*{5.1.1}
+\addcontentsline{toc}{subsubsection}{Pitch}
+\subsubsection*{Pitch}
+For the pitch angle we have that 
+\begin{align*}
+\tau_p = J_p\cdot \ddot{p},
+\end{align*}
+where,
+\begin{align*}
+\sum \tau_p = l_p(F_f-F_g,_f) - l_p(F_b-F_g,_b)
+\end{align*}
+Thus,
+\begin{align*}
+J_p \ddot{p} &= l_p(F_f-F_g,_f) - l_p(F_b-F_g,_b)\\
+             &= l_p(F_f-m_pg) - l_p(F_b+ m_pg)\\
+             &= l_p(F_f - F_b)\\
+             &= l_p(K_fV_f - K_fV_b)\\
+             &= l_pK_f(V_f - V_b)\\
+J_p\ddot{p}  &= L_1V_d \tag{$2a$}\label{2a}
+\end{align*}
+
+
+\addcontentsline{toc}{subsubsection}{Elevation}
+\subsubsection*{Elevation}
+For the elevation pitch we have that 
+\begin{align*}
+J_e\ddot{e}     = \tau_e,
+\end{align*}
+where
+\begin{align*}
+\sum \tau_e     &= \tau_e,_1 + \tau_e,_2
+\end{align*}
+and, 
+\begin{align*}
+\tau_e,_1       &= l_c\cdot m_cg\cdot\sin(\frac{\pi}{2} - e)\\
+                &= l_c\cdot m_cg\cdot \cos(e)\\
+\tau_e,_2       &= l_h\cdot (F_f + F_b)\cdot \sin(\frac{\pi}{2} - p)- l_h(2m_pg)\cdot\sin(\frac{\pi}{2} -e)\\
+                &= l_h(K_fV_s)\cos(p)-l_h(2m_pg)\cos(e)
+\end{align*}
+thus, 
+\begin{align*}
+\sum \tau_e     &= l_c\cdot m_cg\cdot \cos(e) + l_h(K_fV_s)\cos(p)-l_h(2m_pg)\cos(e)\\
+J_e\ddot{e}     &= l_c\cdot m_cg\cdot \cos(e) + l_h(K_fV_s)\cos(p)-l_h(2m_pg)\cos(e)\\
+                &= \cos(e)(l_cm_cg - 2l_hm_pg)+\cos(p)(l_hK_fV_s)\\
+J_e\ddot{e}     &= L_2\cos(e) + L_3V_s\cos(p) \tag{$2b$} \label{2b}
+\end{align*}
+
+
+
+\addcontentsline{toc}{subsubsection}{Travel}
+\subsubsection*{Travel}
+For the travel pitch we have that
+\begin{align*}
+\ddot{\lambda}J_\lambda = \tau_\lambda
+\end{align*}
+where
+\begin{align*}
+\tau_\lambda            &= - l_h\cos(e)\cdot K_fV_s\sin(p) \intertext{thus,}\\
+\ddot{\lambda}J_\lambda &= - l_h\cos(e)\cdot K_fV_s\sin(p)\\
+\ddot{\lambda}J_\lambda &= L_4V_s\cos(e)\sin(p) \tag{$2c$}\label{2c}
+\end{align*}
+
+\addcontentsline{toc}{subsubsection}{Constants}
+\subsubsection*{Constants}
+The constants $L_i, i = 1, 2, 3, 4$ equals
+\begin{align*}
+L_1             &= l_pK_f\\
+L_2             &= l_cm_cg - 2l_hm_pg\\
+L_3             &= l_hK_f \\
+L_4             &= -l_hK_f
+\end{align*}
+
+
+
+
+\newpage
+\addcontentsline{toc}{subsection}{5.1.2}
+\subsection*{5.1.2}
+We want to determine the voltages $V_s^*$ and $V_d^*$ such that $(p^*, e^*, \lambda^*)^T$ is an equilibrium point of the system. Where 
+\begin{align*}
+\begin{bmatrix}
+    p\\
+    e\\
+    \lambda\\
+\end{bmatrix} =
+\begin{bmatrix}
+    p^{\ast}\\
+    e^{\ast}\\
+    \lambda^{\ast}
+\end{bmatrix} 
+\; \text{and} \;
+\begin{bmatrix}
+    V_s\\
+    V_d
+\end{bmatrix} =
+\begin{bmatrix}
+    V_s^{\ast}\\
+    V_d^{\ast}
+\end{bmatrix}
+\end{align*}
+and $(p^*, e^*, \lambda^*)^T = 0$ is the point we wish to linearize the equation of motion around. 
+
+We use (\ref{2a}) and (\ref{2b}) and set $\ddot{p} = \ddot{e} = \ddot{\lambda} = 0$.\\
+From (\ref{2a}) we get:
+\begin{align*}
+V_d^{\ast}      &= 0
+\intertext{From (\ref{2b}) we get:}
+L_2 + L_3V_s    &= 0\\
+V_s^{\ast}      &=-\frac{L_2}{L_3}
+\end{align*}
+Hence,
+\begin{align*}
+\begin{bmatrix}
+    V_s^{\ast}\\
+    V_d^{\ast}
+\end{bmatrix} \;=\; 
+\begin{bmatrix}
+    -\frac{L_2}{L_3}\\
+    0
+\end{bmatrix}
+\end{align*}
+
+
+Next we introduce the coordinate transformation
+\begin{align*}
+\begin{bmatrix}
+    \tilde{p}\\
+    \tilde{e}\\
+    \tilde{\lambda}
+\end{bmatrix} \;=\;
+\begin{bmatrix}
+    p\\
+    e\\
+    \lambda
+\end{bmatrix} \;-\;
+\begin{bmatrix}
+    p^{\ast}\\
+    e^{\ast}\\
+    \lambda^{\ast}
+\end{bmatrix} \quad \text{and} \quad
+\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}
+\end{bmatrix} \;=\;
+\begin{bmatrix}
+    V_s\\
+    V_d
+\end{bmatrix}\;-\;
+\begin{bmatrix}
+    V_s^{\ast}\\
+    V_d^{\ast}
+\end{bmatrix}
+\end{align*}
+\begin{align*}
+\begin{bmatrix}
+    p\\
+    e\\
+    \lambda
+\end{bmatrix} \;=\;
+\begin{bmatrix}
+    \tilde{p}\\
+    \tilde{e}\\
+    \tilde{\lambda}
+\end{bmatrix} \;+\;
+\begin{bmatrix}
+    p^{\ast}\\
+    e^{\ast}\\
+    \lambda^{\ast}
+\end{bmatrix},\qquad
+\begin{bmatrix}
+    V_s\\
+    V_d
+\end{bmatrix}\;=\;
+\begin{bmatrix}
+    \tilde{V_s}\\
+    \tilde{V_d}
+\end{bmatrix} \;+\;
+\begin{bmatrix}
+    V_s^{\ast}\\
+    V_d^{\ast}
+\end{bmatrix}
+\end{align*}
+
+thus (\ref{2a}) - (\ref{2c}) transforms to the system of equation,
+\begin{align*}
+\text{\ref{2a})}\;  J_p\ddot{\tilde{p}}                 &= L_1(\tilde{V_d} + V_d^{\ast}) - p^{\ast}\\
+\text{\ref{2b})}\;  J_e\ddot{\tilde{e}}                 &= L_2\cos(\tilde{e} + e^{\ast}) + L_3(\tilde{V_s} + V_s^{\ast})\cos(\tilde{p} + p^{\ast}) - e^{\ast}\\
+\text{\ref{2c})}\;  J_\lambda\ddot{\tilde{\lambda}}     &= L_4(\tilde{V_s} + V_s^{\ast})\cos(\tilde{e} +                                                                       e^{\ast})\sin(\tilde{p} + p^{\ast}) -\lambda^{\ast}\\
+\end{align*}
+
+We then linearize the system around the point $(\tilde{p}, \tilde{e}, \tilde{\lambda})^T = (0, 0, 0)^T$ and $(\tilde{V_s}, \tilde{V_d})^T = (0, 0)^T$. We have that 
+\begin{align*}
+\ddot{x} = Ax + bu
+\end{align*}
+where,
+\begin{align*}
+A =\frac{{d}F}{{d}x} = 
+\begin{bmatrix}
+    \frac{{d}f_1}{{d}\tilde{p}} & \frac{{d}f_1}{{d}\tilde{e}} & \frac{{d}f_1}{{d}\tilde{\lambda}}\\
+    \frac{{d}f_2}{{d}\tilde{p}} & \frac{{d}f_2}{{d}\tilde{e}} & \frac{{d}f_2}{{d}\tilde{\lambda}}\\
+    \frac{{d}f_3}{{d}\tilde{p}} & \frac{{d}f_3}{{d}\tilde{e}} & \frac{{d}f_3}{{d}\tilde{\lambda}}\\
+\end{bmatrix},\;
+b= 
+\begin{bmatrix}
+    \frac{{d}f_1}{{d}\tilde{V_s}} & \frac{{d}f_1}{{d}\tilde{V_d}}\\
+    \frac{{d}f_2}{{d}\tilde{V_s}} & \frac{{d}f_2}{{d}\tilde{V_d}}\\
+    \frac{{d}f_3}{{d}\tilde{V_s}} & \frac{{d}f_3}{{d}\tilde{V_d}}
+\end{bmatrix} \;
+\text{and}\ x =\;
+\begin{bmatrix}
+    \tilde{p}\\
+    \tilde{e}\\
+    \tilde{\lambda}
+\end{bmatrix}
+\end{align*}
+
+By substituting, deriving, inserting and linearizing we get the matrices: 
+
+\begin{align*}
+A =
+\begin{bmatrix}
+             0                      & 0          & 0\\
+             0                      & 0          & 0\\
+    -\frac{L_2L_4}{J_\lambda L_3}   & 0          & 0
+\end{bmatrix},\quad
+b = 
+\begin{bmatrix} 
+          0           &       \frac{L_1}{J_p}\\
+    \frac{L_3}{J_e}   &             0\\
+          0           &             0 
+\end{bmatrix}
+\end{align*}
+
+So the linearized equation is
+
+\begin{align*}
+\begin{bmatrix}
+    \ddot{\tilde{p}}\\
+    \ddot{\tilde{e}}\\
+    \ddot{\tilde{\lambda}}
+\end{bmatrix} = 
+\begin{bmatrix}
+                0                   &   0       &           0\\
+                0                   &   0       &           0\\
+    -\frac{L_2L_4}{J_\lambda L_3}   &   0       &           0
+\end{bmatrix}
+\begin{bmatrix}
+    \tilde{p}\\
+    \tilde{e}\\
+    \tilde{\lambda}
+\end{bmatrix} +
+\begin{bmatrix}
+            0          &       \frac{L_1}{J_p}\\
+    \frac{L_3}{J_e}    &              0       \\ 
+            0          &              0
+\end{bmatrix}   
+\begin{bmatrix}
+\tilde{V_s}\\
+\tilde{V_d}
+\end{bmatrix}
+\end{align*}
+
+From this it's clear that the linearized equations of motion can be written as
+\begin{align*}
+    \ddot{\tilde{p}} &= K_1 \tilde{V_d}\\
+    \ddot{\tilde{e}} &= K_2 \tilde{V_s}\\
+    \ddot{\tilde{\lambda}} &= K_3 \tilde{p}
+\end{align*}
+With
+\begin{align*}
+    K_1 &= \frac{L_1}{J_p}\\
+    K_2 &= \frac{L_3}{J_e}\\
+    K_3 &= -\frac{L_2L_4}{J_\lambda L_3}
+\end{align*}
+
+\addcontentsline{toc}{subsection}{5.1.3}
+\subsection*{5.1.3}
+The helicopter proved very difficult to control using a simple feedforward control. The physical behavior differed noticeably from our theoretical model. We quickly lost control of the helicopter as it startet to oscillate. We believe there are two main reasons for this behavior. 
+
+First of all, the model is linearized around the point $(0, 0, 0)^T$. The actual response of the system will differ more and more from the predicted response as the system moves away from equilibrium point.
+
+Secondly, we are not using a feedback controller but a feedforward controller. This means that we need to guess and tune the input we need to control the helicopter with. The benefit of using a feedback is that parameters would update and regulate according to the current state. Which we don't have in a feedforward, the parameter don't update. 
+
+Other reasons could be low acuraccy tuning the voltage gains. 
+
+\addcontentsline{toc}{subsection}{5.1.4}
+\subsection*{5.1.4}
+We measure the value of $V_s^{\ast}$ by using a scope, and get that $V_s^{\ast} \approx 6V$. From (\ref{2b}) we have
+\begin{align*}
+    V_s^{\ast}  &= \frac{2l_hm_pg-l_em_eg}{l_hK_f}\\
+    K_f         &= \frac{2l_hm_pg-l_em_eg}{l_hV_s^{\ast}}\\
+    K_f         &\approx 0.16\ N/V
+\end{align*}
+
+
+
