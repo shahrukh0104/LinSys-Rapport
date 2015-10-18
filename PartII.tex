@@ -12,27 +12,40 @@ We substitute in the equation for the PD-controller in to the equation of motion
     \frac{\tilde{p}(s)}{\tilde{p_c}(s)}                                 &= \frac{K_1K_{pp}}{s^2 + K_1K{pd}s + K_1K_{pp}} = \frac{1}{(\frac{s}{\sqrt{K_1K_{pp}}})^2+\frac{K_{pd}}{K_{pp}}s +1}
 \end{align*}
 
+Theoretically, adjusting $K_{pp}$ and $K_{pd}$ changes the pole placement of the system, and therefore also how it behaves. The three types of pole placement the system can have is:
 
-To be able to tune both $K_{pp}$ and $K_{pd}$ we find an expression for both involving the frequency $\omega_0$, so we only need to tune $\omega_0$. To find these expressions we use the result from our transfer function. Notice $K_1$ is a constant we have already defined. We also demand critical damping, that is $\zeta$=0. We rewrite the transferfunction: 
+- Real and unequal poles\\
+- Real and equal poles\\
+- Complex conjugated poles
+
+If the system has real and unequal poles, then it gets an overdamped response. This means that the system response goes asymptotically towards the equilibrium, which is not preferable because it is slow and won't actually be exactly equal to the equilibrium. 
+
+If the system has real and equal poles, then it gets an critical damped response. The response is a bit similar to the overdamped one, but it is to some extent quicker and opposed to the overdamped response the critical damped response reaches the equilibrium.
+
+The last possiblity is to have a system with complex conjugated poles. This pole placement results in an underdamped response for the system, and introduces oscillation to it. However this response is quick, and if it is tuned good enough, the oscillation will be small, and the corresponding step response will be quick and without excessive overshoot.
+
+Instead of taking the risk of getting an unstable response by tuning incorrectly, we wanted to have a critical damped response. To be able to tune both $K_{pp}$ and $K_{pd}$ we found an expression for both with regard to the natural resonant freqency $\omega_0$, thus only needing to tune one parameter. Knowing that the transfer function could be rewritten as 
 \begin{align*}
-\frac{K}{(\frac{s}{\omega_0})^2+\frac{2\zeta}{\omega_0}s +1}
+    \frac{K}{(\frac{s}{\omega_0})^2+\frac{2\zeta}{\omega_0}s +1}
 \end{align*} 
-This gives ut the two different expressions: 
+Setting the relative dampening $\zeta = 1$ (\textit{critically damped}), we can compare with our transfer function and get the expressions:
 \begin{align*}
-K_{pp} = \frac{\omega_0^2}{K_1}\ \text{and}\  K_{pd} = \frac{2\omega_0}{K_1}
+    K_{pp} = \frac{\omega_0^2}{K_1}\enspace \text{and}\enspace K_{pd} = \frac{2\omega_0}{K_1}
 \end{align*}
-Using these expressions we tuned $\omega_0$ with consideration to stability and speed, untill we got a desired and appropriate behaviour to the pitch angle. Our observation concluded with the value of $\omega_0$ should be within the range between 2.1 and 3. Therefore, we chose $\omega_0$ to be 2.5, as a good compromise between stability and speed. We still have a sensetive system, but we get better results and it is easier handling the helicopter now. 
+Using these expressions we tuned $\omega_0$ with consideration to stability and speed, untill we got a desired and appropriate behaviour to the pitch angle. Our observation concluded with the value of $\omega_0$ should be within the range between 2.1 and 3. Therefore, we chose $\omega_0$ to be 2.5, as a good compromise between stability and speed. Which equals $K_{pp} = 14.18$ and $K_{pd} = 9.45$
+
+We still have a sensitive system, but we get better results and it is easier handling the helicopter now. 
 
 
 \newpage
 \addcontentsline{toc}{subsection}{5.2.2}
 \subsection*{5.2.2}
-Since we assume that pitch angle is controlled perfectly we can use the linearized equation of motion and get the two expressions for the P controller:
+Since we assume that pitch angle is controlled perfectly we can use the linearized equation of motion and get the two expressions for the P-controller:
 \begin{align*}
     \tilde{p_c} = K_{rp}(\dot{\tilde{\lambda_c}} - \dot{\tilde{\lambda}}),\quad \tilde{p_c} = \tilde{p} = \frac{\ddot{\tilde{\lambda}}}{K_3}
 \end{align*}
 
-To find the transferfunction $\frac{\dot{\tilde{\lambda}}}{\dot{\tilde{\lambda}}}(s)$ we set the two expressions equal to each other and laplace transform  
+To find the transferfunction $\frac{\dot{\tilde{\lambda}}}{\dot{\tilde{\lambda}}}(s)$ we set the two expressions equal to one another and laplace transform  
 \begin{align*}
     \frac{\ddot{\tilde{\lambda}}}{K_3}  &=  K_{rp}(\dot{\tilde{\lambda_c}}- \dot{\tilde{\lambda}})\\
     \ddot{\tilde{\lambda}}              &= K_{rp}K_3(\dot{\tilde{\lambda_c}}- \dot{\tilde{\lambda}})\\
@@ -41,4 +54,4 @@ To find the transferfunction $\frac{\dot{\tilde{\lambda}}}{\dot{\tilde{\lambda}}
     \frac{\dot{\tilde{\lambda}}}{\dot{\tilde{\lambda_c}}}(s) &= \frac{K_{rp}K_3}{s + K{rp}K_3} = \frac{\rho}{s + \rho}
 \end{align*}
 
-We are still not able to compensate for the steady-state error. 
+$K_{rp}$ was set to $-1.25$ after tuning. We are still not able to compensate for the steady-state error. 
