@@ -1,7 +1,5 @@
 \addcontentsline{toc}{section}{Part I - Mathematical Modeling}
 \section*{Part I - Mathematical Modeling}
-
-%"BEVIS" FOR NEWTONS 2.LOV
 First of all we have to derive the equations of motion for the pitch, elevation and travel angles. To obtain these, we use Newton's second law for rotational motion about an axis of rotation. Which is given by
 \begin{align*}
 \sum_{i}\tau_\phi = \sum_{i}r_i\times F_i = \sum_{i}m_ir_i \times (a_c + a_t) = \sum_{i}m_ir_i \times a_t = \sum_{i}m_ir_i \times \alpha \times r_i
@@ -12,7 +10,7 @@ That is, the torque $\tau$ about the axis $\phi$ equals the arm $r$ times the fo
 \sum\tau_\phi = J_\phi \cdot \alpha
 \end{align*}
 where $J_\phi$ is the total moment of inertia around $\phi$. In the following subsections the angles pitch, elevation and travel has been derived accordingly. 
-\addcontentsline{toc}{subsection}{5.1.1}
+\addcontentsline{toc}{subsection}{5.1.1 Problem 1}
 \subsection*{5.1.1}
 \addcontentsline{toc}{subsubsection}{Pitch}
 \subsubsection*{Pitch}
@@ -89,7 +87,7 @@ L_4             &= -l_hK_f
 
 
 \newpage
-\addcontentsline{toc}{subsection}{5.1.2}
+\addcontentsline{toc}{subsection}{5.1.2 Problem 2}
 \subsection*{5.1.2}
 We want to determine the voltages $V_s^*$ and $V_d^*$ such that $(p^*, e^*, \lambda^*)^T$ is an equilibrium point of the system. Where 
 \begin{align*}
@@ -288,7 +286,7 @@ With
     K_3 &= -\frac{L_2L_4}{J_\lambda L_3}
 \end{align*}
 
-\addcontentsline{toc}{subsection}{5.1.3}
+\addcontentsline{toc}{subsection}{5.1.3 Problem 3}
 \subsection*{5.1.3}
 The helicopter proved very difficult to control using a simple feedforward control. The physical behavior differed noticeably from our theoretical model. We quickly lost control of the helicopter as it startet to oscillate. We believe there are two main reasons for this behavior. 
 
@@ -298,7 +296,7 @@ Secondly, we are not using a feedback controller but a feedforward controller. T
 
 Other reasons could be low acuraccy tuning the voltage gains. 
 
-\addcontentsline{toc}{subsection}{5.1.4}
+\addcontentsline{toc}{subsection}{5.1.4 Problem 4}
 \subsection*{5.1.4}
 We measure the value of $V_s^{\ast}$ by using a scope, and get that $V_s^{\ast} \approx 6V$. From (\ref{2b}) we have
 \begin{align*}

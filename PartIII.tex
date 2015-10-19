@@ -1,11 +1,11 @@
 \addcontentsline{toc}{section}{Part III - Multi-variable control}
 \section*{Part III - Multi-variable control}
-\addcontentsline{toc}{subsection}{5.3.1}
-\subsection*{5.3.1}
+\addcontentsline{toc}{subsection}{5.3.1 Problem 1}
+\subsection*{5.3.1 Problem 1}
 
 We have that 
 \begin{align*}
-    \ddot{\tilde{p}}    &= K_3\tilde{V_d}\\
+    \ddot{\tilde{p}}    &= K_1\tilde{V_d}\\
     \ddot{\tilde{e}}    &= K_2\tilde{V_s}
     \intertext{We want to model in the state-space formulation}
     \dot{x}             &= Ax + Bu
@@ -41,8 +41,7 @@ A\begin{bmatrix}
     \tilde{V_d}
 \end{bmatrix}
 \end{align*}
-
-
+and get
 \begin{align*}
 \begin{bmatrix}
     \dot{\tilde{p}}\\
@@ -69,72 +68,91 @@ A\begin{bmatrix}
     \tilde{V_d}
 \end{bmatrix}
 \end{align*}
-%%%%%%%%%%%Conclude with something related to the task%%%%%%%%%%%
+
 
 \newpage
-\addcontentsline{toc}{subsection}{5.3.2}
-\subsection*{5.3.2}
-%%%%%%%%%%Some text with description%%%%%%%%%%%%%%%%%
+\addcontentsline{toc}{subsection}{5.3.2 Problem 2}
+\subsection*{5.3.2 Problem 2}
+The controllability of the system is examined by calculating the controllability matrix.
 \begin{align*}
-r &= 
+\mathcal{C} = 
 \begin{bmatrix}
-    \tilde{p_c}\\
-    \dot{\tilde{e_c}}
+\mathbf{B} & \mathbf{AB} & \mathbf{A^2B}
+\end{bmatrix} = 
+\begin{bmatrix}
+0 & 0 & 0 & K_1 & 0 & 0\\
+0 & K_1 & 0 & 0 & 0 & 0\\
+K_2 & 0 & 0 & 0 & 0 & 0
 \end{bmatrix}
-%%%%%%%%%%%%Something about Brysons rule not being good enough%%%%%%%%%%
-\intertext{To find the weighting matrices Q and R we use Brysons rule. We want the pitch ($\tilde{p}$) to be max 45$^{\circ}$, that is $\frac{\pi}{4}$rad. And we want it to accomplish that in $0.5$sek that is $\dot{\tilde{p}} = \frac{\pi}{2}$. In addition to that we want elevation rate to be maximum $\frac{\pi}{6}$. This gives us}
-Q &=
+\end{align*}
+Since the matrix has full rank, the system is controllable. We now wish to apply the multivariable controller
+\begin{align*}
+\mathbf{u = Pr - Kx}
+\end{align*}
+
+Where $\mathbf{Pr}$ is the reference feed-forward and $\mathbf{Kx}$ is the state feedback. The matrix $\mathbf{K}$ corresponds to the linear quadratic regulator (LQR) for which the control input $\mathbf{u =- Kx}$ optimizes the cost function
+\begin{align*}
+        J = \int_0^\infty\! \mathbf{(x}^T\mathbf{Qx} + \mathbf{u}^T\mathbf{Ru)\, \mathrm{d}x}
+\end{align*}
+
+To find the weighting matrices $\mathbf{Q}$ and $\mathbf{R}$ we use Bryson's rule. The different values for $\mathbf{Q}$ were chosen based on the fact that we did not want the pitch ($\tilde{p}$) to be larger than $45^{\circ}$, that is $\frac{\pi}{4}\ rad$, each way; to keep the helicopter stable we did not want the pitch to go from $-45^{\circ}$ to $45^{\circ}$ faster than $0.5$ seconds; and we wished to have a steady climb rate. That gave us 
+\begin{align*}
+\mathbf{Q} &=
 \begin{bmatrix}
     \frac{16}{\pi^2} & 0 & 0\\
     0 & \frac{4}{\pi^2} & 0\\
     0 & 0 & \frac{9}{\pi^2}
 \end{bmatrix}
-\intertext{we say that the maximum voltage output is 10V, so $V_s = V_d = 10V.$ This gives us}
-R &= 
+\intertext{In our choice of $\mathbf{R}$, we said that the maximum voltage output should be no more than $10V$, thus}
+\mathbf{R} &= 
 \begin{bmatrix}
     0.01 & 0\\
     0 & 0.01
 \end{bmatrix}
-\intertext{using Matlab, we find that matrix K (The matrix that corresponds to the LQR for which the controll input $u = -Kx$ optimize the cost function) is}
-K &= 
+\intertext{Using MATLAB to calculate the matrix $K$, we get}
+\mathbf{K} &= 
 \begin{bmatrix}
     0 & 0 & 9.55\\
     12.7 & 8.98 & 0
 \end{bmatrix}
-\intertext{We want to find matrix P so that in theory we get $y = r_c$ when $t->$(uendelig). We have that}
+\intertext{Furthermore, we want to find matrix $\mathbf{P}$ so in theory we get $y = r_c$ as $t\rightarrow \infty$. We have that}
 y = 
 \begin{bmatrix}
     \tilde{p}\\
     \dot{\tilde{e}}
-\end{bmatrix} 
-&= Cx,\,\text{where}\ C = 
-\begin{bmatrix}
-    1 & 0 & 0\\
-    0 & 0 & 0
-\end{bmatrix}
+\end{bmatrix} &= \mathbf{C}x,
 \intertext{We Laplace transform the state-space formula, and get}
-    sIx                 &= Ax + Bu\\
+    s\mathbf{I}x                 &= \mathbf{A}x + \mathbf{B}u\\
 \intertext{we now substitue in for u.}
-    sIx                 &= Ax + B(\frac{Pr_c}{s} - Kx)\\
-    sIx - Ax + Bx       &= B\frac{Pr_c}{s}\\
-    (sI - A + BK)x      & = B\frac{Pr_c}{s}\\
-    x                   &= (sI-A+BK)^{-1} B\frac{Pr_c}{s}
-\intertext{we substitute} x\ \text{in}\ y &= Cx\\
-    y                   &= C(sI-A+BK)^{-1}B\frac{Pr_c}{s}
-\intertext{We use the finit value theorem to find y after t - uendelig and choose P such that $y = r_c$. We get}
-    y                   &=\\ %lim s->0% sC(sI-A+ BK)^{-1}B\frac{Pr_c}{s}\\
-    y                   &= C(-A+BK)^{-1}BPr_c
-\intertext{For $y$ to be equal to $r_c$, then P has to equal}
-    P                   &= (C(-A+BK)^{-1}B)^{-1}
+    s\mathbf{I}x                 &= \mathbf{A}x + \mathbf{B}(\frac{\mathbf{P}r_c}{s} - \mathbf{K}x)\\
+    s\mathbf{I}x - \mathbf{A}x + \mathbf{B}x       &= \mathbf{B}\frac{\mathbf{P}r_c}{s}\\
+    (s\mathbf{I} - \mathbf{A} + \mathbf{BK})x      & =\mathbf{B}\frac{\mathbf{P}r_c}{s}\\
+    x                   &= (s\mathbf{I}-\mathbf{A}+\mathbf{BK})^{-1} \mathbf{B}\frac{\mathbf{P}r_c}{s}
+\intertext{we substitute} x\ \text{in}\ y &= \mathbf{C}x\\
+    y                   &= \mathbf{C}(s\mathbf{I}-\mathbf{A}+\mathbf{BK})^{-1}\mathbf{B}\frac{\mathbf{P}r_c}{s}
+\intertext{We use the finit value theorem to find y after $t\rightarrow \infty$ and choose $\mathbf{P}$ such that $y = r_c$. We get}
+    y                   &= \lim_{s \to 0} s\mathbf{C}(s\mathbf{I}-\mathbf{A}+ \mathbf{BK})^{-1}\mathbf{B}\frac{\mathbf{P}r_c}{s}\\
+    y                   &= \mathbf{C}(-\mathbf{A}+\mathbf{BK})^{-1}\mathbf{BP}r_c
+\intertext{For $y$ to be equal to $r_c$, then $\mathbf{P}$ has to equal}
+    \mathbf{P}                   &= (\mathbf{C}(-\mathbf{A}+\mathbf{BK})^{-1}\mathbf{B})^{-1}
+\intertext{Using MATLAB once more to calculate $\mathbf{P}$, we have that}
+    \mathbf{P}          &= \begin{bmatrix}
+    0 & 9.55\\
+    12.70 & 0
+    \end{bmatrix}
 \end{align*}
-%%%%%%%Something about steady-state error, that will be compusated for in PI%%%%%
-
+The helicopter improves alot using this system, however we are not able to fly perfectly because of the steady-state error. 
 
 
 \newpage
-\addcontentsline{toc}{subsection}{5.3.3}
+\addcontentsline{toc}{subsection}{5.3.3 Problem 3}
 \subsection*{5.3.3}
-We now have:
+We now modify the previous problem to include an integral effect for the elevation rate and pitch angle, this results in two additional states $\gamma$ and $\zeta$. For which the differential equations are defined as 
+\begin{align*}
+\dot{\gamma} & = \tilde{p} - \tilde{p_c}\\
+\dot{\zeta}  & = \dot{\tilde{e}} - \dot{\tilde{e_c}}
+\end{align*}
+Hence, the state-vector and input-vector is 
 \begin{align*}
 x &=
 \begin{bmatrix}
@@ -203,7 +221,7 @@ B\begin{bmatrix}
     \tilde{V_s}
 \end{bmatrix}
 \end{align*}
-This gives new matrices $A, B, K$ and $Q$:
+This new matrices $A, B, K$ and $Q$ now equal:
 \begin{align*}
 A = \begin{bmatrix}
     0 & 1 & 0 & 0 & 0\\
@@ -212,22 +230,32 @@ A = \begin{bmatrix}
     1 & 0 & 0 & 0 & 0\\
     0 & 0 & 1 & 0 & 0
 \end{bmatrix},\qquad
-B &= \begin{bmatrix}
+B = \begin{bmatrix}
     0 & 0\\
     0 & K1\\
     K2 & 0\\
     0 & 0\\
     0 & 0
-\end{bmatrix},\\
+\end{bmatrix},\qquad
+C = \begin{bmatrix}
+1 & 0 & 0 & 0 &\\
+0 & 0 & 1 & 0 &
+\end{bmatrix}
+\end{align*}
+\begin{align*}
 K = \begin{bmatrix}
-0       & 0     & 10.52 & 0     & 1\\
-19.04   & 10.03 & 0     & 10    & 0 
+0       & 0     & 16.9 & 0     & 10\\
+19.0   & 10.0 & 0     & 10    & 0 
 \end{bmatrix}, \qquad
 Q &= \begin{bmatrix}
     \frac{16}{\pi^2} & 0 & 0 & 0 & 0\\
     0 & \frac{4}{\pi^2} & 0 & 0 & 0\\
     0 & 0 & \frac{9}{\pi^2} & 0 & 0 \\
-    0 & 0 & 0 & 100 & 0 \\
-    0 & 0 & 0 & 0 & 100
+    0 & 0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 1
 \end{bmatrix}
 \end{align*}
+
+A new state-definition requires a new Q. What we wish to accomplish with the two new states is to reach the reference, without actually effecting the overall stability or transient response. That is why Q is given the values it now has. 
+
+By adding the integral effect the behavior of the helicopter changed significantly. As we expected, the pitch was now able to reach true zero, ie. the steady-state error was dealt with. By introducing the integral effect the elevation rate also became more accurate, and it was easier to control the helicopter as whole. 
