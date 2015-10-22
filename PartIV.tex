@@ -1,7 +1,7 @@
 \addcontentsline{toc}{section}{Part IV - State estimation}
 \section*{Part IV - State estimation}
 \addcontentsline{toc}{subsection}{5.4.1 Problem 1}
-\subsection*{5.4.1}
+\subsection*{5.4.1 Problem 1}
 We now have that
 \begin{align*}
 x &= 
@@ -104,7 +104,7 @@ y &= Cx =
 
 \newpage
 \addcontentsline{toc}{subsection}{5.4.2 Problem 2}
-\subsection*{5.4.2}
+\subsection*{5.4.2 Problem 2}
 To examine the observability of the system, we need to calculate wether or not the observability matrix has full rank or not. The observability matrix $\mathcal{O}$ is given by
 
 \begin{align*}
@@ -138,7 +138,7 @@ K_3 & 0 & 0 & 0 & 0 & 0\\
 0 & 0 & 0 & 0 & 0 & 0
 \end{bmatrix}
 \end{align*}
-As seen $\mathcal{O}$ has full rank, and the system is observable. Next, a linear observer for the system is created
+As we can see, $\mathcal{O}$ has full rank, and the system is observable. Next, a linear observer for the system is created
 \begin{align*}
 \dot{\hat{x}} = A\hat{x} + Bu + L(y - C\hat{x})
 \end{align*}
@@ -179,9 +179,28 @@ The system then equals
 \end{bmatrix}r
 \end{align*}
 
+We are able to choose the $L$ independentaly from the already choosen $K$ because of the principle of seperation. \\
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth,height=0.1\textheight]{Pitch.png}\\
+\includegraphics[width=0.9\textwidth,height=0.1\textheight]{Pitch_Rate.png}\\
+\includegraphics[width=0.9\textwidth,height=0.1\textheight]{Elevation_Rate.png}\\
+\caption{Estimated states (purple) vs. measured states (yellow) for the 3-input observer, with P controller}
+\label{fig:my_label}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth,height=0.1\textheight]{PI_Pitch.png}\\
+\includegraphics[width=0.9\textwidth,height=0.1\textheight]{PI_Pitch_Rate.png}\\
+\includegraphics[width=0.9\textwidth,height=0.1\textheight]{PI_Elevation_Rate.png}
+\caption{Estimated states (purple) vs. measured states (yellow) for the 3-input observer, with PI controller}
+\label{fig:my_label2}
+\end{figure}
+
+The estimated states seem to converge to the true states while significantly filtering out measurement noise for the pitch and pitch rate. The necessary speed of the observer, i.e the radius of the pole placements, was around 100 times greater than the closed loop controllers. While the speed of the observer was seen to greatly affect the quality of the estimation and thus the response of the helicopter, variation of the angular spread in the pole placements did not generate any great effects.
+
 \newpage
 \addcontentsline{toc}{subsection}{5.4.3 Problem 3}
-\subsection*{5.4.3}
+\subsection*{5.4.3 Problem 3}
 If $\tilde{e}$ and $\tilde{\lambda}$ are measured, $C$ is given by
 \begin{align*}
 C =

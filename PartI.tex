@@ -11,7 +11,7 @@ That is, the torque $\tau$ about the axis $\phi$ equals the arm $r$ times the fo
 \end{align*}
 where $J_\phi$ is the total moment of inertia around $\phi$. In the following subsections the angles pitch, elevation and travel has been derived accordingly. 
 \addcontentsline{toc}{subsection}{5.1.1 Problem 1}
-\subsection*{5.1.1}
+\subsection*{5.1.1  Problem 1}
 \addcontentsline{toc}{subsubsection}{Pitch}
 \subsubsection*{Pitch}
 For the pitch angle we have that 
@@ -88,7 +88,7 @@ L_4             &= -l_hK_f
 
 \newpage
 \addcontentsline{toc}{subsection}{5.1.2 Problem 2}
-\subsection*{5.1.2}
+\subsection*{5.1.2 Problem 2}
 We want to determine the voltages $V_s^*$ and $V_d^*$ such that $(p^*, e^*, \lambda^*)^T$ is an equilibrium point of the system. Where 
 \begin{align*}
 \begin{bmatrix}
@@ -287,12 +287,12 @@ With
 \end{align*}
 
 \addcontentsline{toc}{subsection}{5.1.3 Problem 3}
-\subsection*{5.1.3}
+\subsection*{5.1.3 Problem 3}
 The helicopter proved very difficult to control using a simple feedforward control. The physical behavior differed noticeably from our theoretical model. We quickly lost control of the helicopter as it startet to oscillate. We believe there are two main reasons for this behavior. 
 
 First of all, the model is linearized around the point $(0, 0, 0)^T$. The actual response of the system will differ more and more from the predicted response as the system moves away from equilibrium point.
 
-Secondly, we are not using a feedback controller but a feedforward controller. This means that we need to guess and tune the input we need to control the helicopter with. The benefit of using a feedback is that parameters would update and regulate according to the current state. Which we don't have in a feedforward, the parameter don't update. 
+Secondly, we are not using a feedback controller but a feedforward controller. This means that we need to guess and tune the input we need to control the helicopter with. The benefit of feedback is that parameters would update and regulate according to the current state. This is not available when using feedforward. 
 
 Other reasons could be low acuraccy tuning the voltage gains. 
 

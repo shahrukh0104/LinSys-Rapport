@@ -2,7 +2,7 @@
 \section*{Part II - Mono-variable control}
 
 \addcontentsline{toc}{subsection}{5.2.1Problem 1}
-\subsection*{5.2.1}
+\subsection*{5.2.1 Problem 1}
 We substitute in the equation for the PD-controller in to the equation of motion for the pitch angle $\tilde{p}$ and Laplace transform
 \begin{align*}
     \ddot{\tilde{p}}                                                    &= K_1(K_{pp}(\tilde{p_c}-\tilde{p})- K_{pd}\dot{\tilde{p}}\\
@@ -18,7 +18,7 @@ Theoretically, adjusting $K_{pp}$ and $K_{pd}$ changes the pole placement of the
 - Real and equal poles\\
 - Complex conjugated poles
 
-If the system has real and unequal poles, then it gets an overdamped response. This means that the system response goes asymptotically towards the equilibrium, which is not preferable because it is slow and won't actually be exactly equal to the equilibrium. 
+If the system has real and unequal poles the response will be overdamped. This means that the system response goes asymptotically towards the equilibrium, which is not diserable as it is slow and won't actually be exactly equal to the equilibrium. 
 
 If the system has real and equal poles, then it gets an critical damped response. The response is a bit similar to the overdamped one, but it is to some extent quicker and opposed to the overdamped response the critical damped response reaches the equilibrium.
 
@@ -39,7 +39,7 @@ We still have a sensitive system, but we get better results and it is easier han
 
 \newpage
 \addcontentsline{toc}{subsection}{5.2.2 Problem 2}
-\subsection*{5.2.2}
+\subsection*{5.2.2 Problem 2}
 Since we assume that pitch angle is controlled perfectly we can use the linearized equation of motion and get the two expressions for the P-controller:
 \begin{align*}
     \tilde{p_c} = K_{rp}(\dot{\tilde{\lambda_c}} - \dot{\tilde{\lambda}}),\quad \tilde{p_c} = \tilde{p} = \frac{\ddot{\tilde{\lambda}}}{K_3}
